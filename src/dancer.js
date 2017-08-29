@@ -4,6 +4,7 @@ var Dancer = function(top, left, timeBetweenSteps) {
   this.$node = $('<span class="dancer"></span>');
   this.top = top;
   this.left = left;
+  this.timeoutVar;
 
   Dancer.prototype.step.call(this, timeBetweenSteps);
 
@@ -15,7 +16,7 @@ var Dancer = function(top, left, timeBetweenSteps) {
 Dancer.prototype.step = function(timeBetweenSteps) {
   // the basic dancer doesn't do anything interesting at all on each step,
   // it just schedules the next step
-  setTimeout(this.step.bind(this, timeBetweenSteps), timeBetweenSteps);
+  this.timeoutVar = setTimeout(this.step.bind(this, timeBetweenSteps), timeBetweenSteps);
 };
 
 Dancer.prototype.setPosition = function(top, left) {
@@ -27,4 +28,19 @@ Dancer.prototype.setPosition = function(top, left) {
     left: left
   };
   this.$node.css(styleSettings);
+};
+
+Dancer.prototype.lineUp = function() {
+  // cancel setTimeout for each dancer
+  // clearTimeout(this.timeoutVar); 
+
+  // .setPosition to lineup calculated value for each dancer
+  this.setPosition(this.top, this.left);
+
+  // reschedule setTimeout with uniform dance moves
+  
+  this.$node.animate({"top": "+=50px"});
+  this.$node.animate({"top": "-=50px"});
+
+  this.timeoutVar = setTimeout(this.lineUp.bind(this, 1000), 1000);
 };

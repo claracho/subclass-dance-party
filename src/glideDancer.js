@@ -3,7 +3,7 @@ var GlideDancer = function(top, left, timeBetweenSteps) {
   Dancer.call(this, top, left, timeBetweenSteps);
   this.trigger = 0;
   this.increment = 1;
-  this.oldStep = Dancer.prototype.step.bind(this, timeBetweenSteps/15);
+  this.oldStep = Dancer.prototype.step.bind(this, timeBetweenSteps);
 
 };
 
@@ -17,12 +17,6 @@ GlideDancer.prototype.step = function(timeBetweenSteps) {
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
 
-  
-  if (this.trigger >= 7) {
-    this.increment = -1;
-  } else if (this.trigger <= -7) {
-    this.increment = 1;
-  }
-  this.trigger += this.increment;
-  this.$node.css({"left": "+=" + this.trigger});
+  this.$node.animate({'left': '+=50px'}, timeBetweenSteps);
+  this.$node.animate({'left': '-=50px'}, timeBetweenSteps);
 };

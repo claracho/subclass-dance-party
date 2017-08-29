@@ -28,6 +28,18 @@ $(document).ready(function() {
     );
     $('body').append(dancer.$node);
     window.dancers.push(dancer);
+    
+    // on mouseover, make the dancer do something
+    $('.dancer').mouseenter(function(event) {
+      $(this).animate({
+        width: "+=10%"
+      });
+    });
+    $('.dancer').mouseleave(function(event) {
+      $(this).animate({
+        width: "-=10%"
+      });
+    });
   });
   
   $('.alignDancersButton').on('click', function(event) {
@@ -38,5 +50,14 @@ $(document).ready(function() {
     alignFunction(window.dancers, $("body").height(), $("body").width());
     
   });
+
+  $('.lineUpDancersButton').on('click', function(event) {
+    var lineUpFunctionName = $(this).data('line-up-function-name');
+
+    // get the maker function for the kind of dancer we're supposed to make
+    var lineUpFunction = window[lineUpFunctionName];
+    lineUpFunction(window.dancers, $("body").height(), $("body").width());
+  });
+
 });
 
