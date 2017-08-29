@@ -27,6 +27,16 @@ $(document).ready(function() {
       Math.random() * 1000
     );
     $('body').append(dancer.$node);
+    window.dancers.push(dancer);
+  });
+  
+  $('.alignDancersButton').on('click', function(event) {
+    var alignFunctionName = $(this).data('align-function-name');
+
+    // get the maker function for the kind of dancer we're supposed to make
+    var alignFunction = window[alignFunctionName];
+    alignFunction(window.dancers, $("body").height(), $("body").width());
+    
   });
 });
 

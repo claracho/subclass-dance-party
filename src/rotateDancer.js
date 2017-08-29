@@ -1,9 +1,9 @@
 var RotateDancer = function(top, left, timeBetweenSteps) {
   // this = Object.create(BlinkyDancer.prototype)
   Dancer.call(this, top, left, timeBetweenSteps);
-  this.trigger = true;
-  
-  this.oldStep = Dancer.prototype.step.bind(this, timeBetweenSteps);
+  this.trigger = 0;
+  this.increment = 1;
+  this.oldStep = Dancer.prototype.step.bind(this, timeBetweenSteps/10);
 
 };
 
@@ -12,17 +12,15 @@ RotateDancer.prototype.constructor = RotateDancer;
 
 RotateDancer.prototype.step = function(timeBetweenSteps) {
   // call the old version of step at the beginning of any call to this new version of step
-  this.oldStep(timeBetweenSteps);
+  this.oldStep();
   // toggle() is a jQuery method to show/hide the <span> tag.
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
-  var inject;
-  if (this.trigger) {
-    inject = '+';
-    this.trigger = false;
-  } else {
-    inject = '-';
-    this.trigger = true;
+  if (this.trigger >= 10) {
+    this.increment = -1;
+  } else if (this.trigger <= -10) {
+    this.increment = 1;
   }
-  this.$node.animate({"left": inject + "=100px"}, timeBetweenSteps);
+  this.trigger += this.increment;
+  this.$node.css({"transform": "rotate(" + this.trigger * 5 + "deg)"});
 };
