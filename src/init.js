@@ -1,5 +1,7 @@
 $(document).ready(function() {
   window.dancers = [];
+  window.leader;
+  window.followers = [];
 
   $('.addDancerButton').on('click', function(event) {
     /* This function sets up the click handlers for the create-dancer
@@ -26,28 +28,64 @@ $(document).ready(function() {
       $("body").width() * Math.random(),
       Math.random() * 1000
     );
+
     $('body').append(dancer.$node);
     window.dancers.push(dancer);
     
-    // on mouseover, make the dancer do something
+    // on mouseover, make the dancer expand and shrink
     $('.dancer').mouseenter(function(event) {
       $(this).animate({
-        width: "+=10%"
+        width: "+=10px",
+        height: "+=10px"
       });
     });
     $('.dancer').mouseleave(function(event) {
       $(this).animate({
-        width: "-=10%"
+        width: "-=10px",
+        height: "-=10px"
       });
+    });
+    $('.dancer').on('click', function(event) {
+      if (window.leader === undefined) {
+        var context = this;
+        window.leader = window.dancers.find(function(dancer) {
+          return dancer.$node[0] === context;
+        });
+
+        window.leader.$node.css({'border': '10px solid blue'});
+        
+        // randomize direction
+        // then setInterval
+        setInterval(()=>{ 
+          var plusOrMinus = Math.random() > 0.5 ? 1 : -1;
+          var plusOrMinus2 = Math.random() > 0.5 ? 1 : -1;
+          window.leader.top += plusOrMinus * 5;
+          window.leader.left += plusOrMinus2 * 5;
+          window.leader.setPosition(window.leader.top, window.leader.left); 
+        }, 100);
+        
+      } else {
+        var context = this;
+        var thisFollower = window.dancers.find(function(dancer) {
+          return dancer.$node[0] === context;
+        });
+        window.followers.push(thisFollower);
+        
+        setInterval(()=>{
+          thisFollower.top += (window.leader.top - thisFollower.top) > 0 ? 1 : -1;
+          thisFollower.left += (window.leader.left - thisFollower.left) > 0 ? 1 : -1;
+          thisFollower.setPosition(thisFollower.top, thisFollower.left); 
+        }, 100);  
+      }
     });
   });
   
-  $('.alignDancersButton').on('click', function(event) {
-    var alignFunctionName = $(this).data('align-function-name');
+  $('.roundUpDancersButton').on('click', function(event) {
+    var roundUpFunctionName = $(this).data('round-up-function-name');
 
     // get the maker function for the kind of dancer we're supposed to make
-    var alignFunction = window[alignFunctionName];
-    alignFunction(window.dancers, $("body").height(), $("body").width());
+    var roundUpFunction = window[roundUpFunctionName];
+    roundUpFunction(window.dancers, $("body").height(), $("body").width());
     
   });
 

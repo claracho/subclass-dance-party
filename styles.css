@@ -9,9 +9,27 @@ body{
 body, a:link, a:visited, a:active{
   color: lightblue;
 }
-.title, .addDancerButton, .alignDancerButton {
+.title {
+  float: right;
   padding:5px 12px;
-  float:right;
+}
+
+
+.addDancerButton {
+  padding:5px 12px;
+  float:left;
+  border: 3px solid #FFF;
+  border-radius: 50px;
+  text-decoration: none;
+}
+.lineUpDancersButton, .roundUpDancersButton {
+  padding:5px 12px;
+  font-weight: bold;
+  float:left;
+  border: 3px solid #FFF;
+  border-radius: 50px;
+  margin-left: 20px;
+  text-decoration: none;
 }
 
 .topbar{
@@ -22,7 +40,9 @@ body, a:link, a:visited, a:active{
   background-color: #777;
 }
 .dancer{
+  box-sizing: border-box;
   border:10px solid red;
   /*border-radius:10px;*/
   position:absolute;
+  
 }
