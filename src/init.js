@@ -35,14 +35,12 @@ $(document).ready(function() {
     // on mouseover, make the dancer expand and shrink
     $('.dancer').mouseenter(function(event) {
       $(this).animate({
-        width: "+=10px",
-        height: "+=10px"
+        height: "+=30px"
       });
     });
     $('.dancer').mouseleave(function(event) {
       $(this).animate({
-        width: "-=10px",
-        height: "-=10px"
+        height: "-=30px"
       });
     });
     $('.dancer').on('click', function(event) {

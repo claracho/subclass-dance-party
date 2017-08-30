@@ -1,7 +1,11 @@
 // Creates and returns a new dancer object that can step
 var Dancer = function(top, left, timeBetweenSteps) {
-  // use jQuery to create an HTML <span> tag
-  this.$node = $('<span class="dancer"></span>');
+  // use jQuery to create an HTML <img> tag
+  if (Math.random() > 0.5) {
+    this.$node = $('<img class="dancer" src="img/dancer1.png">');
+  } else {
+    this.$node = $('<img class="dancer" src="img/dancer2.png">');
+  }
   this.top = top;
   this.left = left;
   this.timeoutVar;

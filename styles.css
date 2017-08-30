@@ -1,4 +1,6 @@
 body, html{
+  background-image: url("img/background.jpg");
+  background-size: cover;
   height:100%;
 }
 body{
@@ -40,9 +42,9 @@ body, a:link, a:visited, a:active{
   background-color: #777;
 }
 .dancer{
-  box-sizing: border-box;
+  height: 80px;
+  width: auto;
   border:10px solid red;
-  /*border-radius:10px;*/
+  border-radius:80px;
   position:absolute;
-  
 }
